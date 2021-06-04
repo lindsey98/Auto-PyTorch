@@ -136,46 +136,32 @@ Disable pynisher if you experience issues when using cuda:
 autoPyTorch = AutoNetClassification("tiny_cs", log_level='info', max_runtime=300, min_budget=30, max_budget=90, cuda=True, use_pynisher=False)
 
 ```
+## Project structure
 
-## License
+```
+autoPyTorch
+|_ components
+   |_ baselines: KNN, RF, SVM etc. ML models
+   |_ ensemble: create ensemble from base models
+   |_ metrics: standard metrics
+   |_ ** networks: DL networks
+   |_ optimizer: Adam/RMSprop etc.
+   |_ preprocessing
+   |_ regularization: mixup, shake-shake and shake-drop regularization
+   |_ training
+   
+|_ ** core
+   |_ autonet_classes: define default pipeline for classification, regression, image classification etc.
+   |_ hpbandster_extensions: extends from https://github.com/automl/HpBandSter, hyperparamter optimization
 
-This program is free software: you can redistribute it and/or modify
-it under the terms of the Apache license 2.0 (please see the LICENSE file).
+|_ data_management: dataloader
+|_ ** pipeline
+   |_ nodes: define trainer, selector
 
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+configs: config files
 
-You should have received a copy of the Apache license 2.0
-along with this program (see LICENSE file).
 
-## Reference
-
-```bibtex
-  @article{zimmer-tpami21a,
-  author = {Lucas Zimmer and Marius Lindauer and Frank Hutter},
-  title = {Auto-PyTorch Tabular: Multi-Fidelity MetaLearning for Efficient and Robust AutoDL},
-  journal = {IEEE Transactions on Pattern Analysis and Machine Intelligence},
-  year = {2021},
-  note = {IEEE early access; also available under https://arxiv.org/abs/2006.13799},
-  pages = {1-12}
-}
 ```
 
-```bibtex
-@incollection{mendoza-automlbook18a,
-  author    = {Hector Mendoza and Aaron Klein and Matthias Feurer and Jost Tobias Springenberg and Matthias Urban and Michael Burkart and Max Dippel and Marius Lindauer and Frank Hutter},
-  title     = {Towards Automatically-Tuned Deep Neural Networks},
-  year      = {2018},
-  month     = dec,
-  editor    = {Hutter, Frank and Kotthoff, Lars and Vanschoren, Joaquin},
-  booktitle = {AutoML: Methods, Sytems, Challenges},
-  publisher = {Springer},
-  chapter   = {7},
-  pages     = {141--156}
-}
-```
 
-## Contact
 
-Auto-PyTorch is developed by the [AutoML Groups of the University of Freiburg and Hannover](http://www.automl.org/).
