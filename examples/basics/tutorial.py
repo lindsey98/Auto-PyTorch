@@ -1,27 +1,27 @@
 #%%
 
-import unittest
-import torch
-import torch.nn as nn
-
-from autoPyTorch.pipeline.base.pipeline import Pipeline
-from autoPyTorch.components.networks.image import ConvCusNet
-from autoPyTorch.pipeline.nodes.image.network_selector_datasetinfo import NetworkSelectorDatasetInfo
-from autoPyTorch.pipeline.nodes.image.create_dataset_info import DataSetInfo
-
-#%%
-
-pipeline = Pipeline([
-    NetworkSelectorDatasetInfo()
-])
-dataset_info = DataSetInfo()
-selector = pipeline[NetworkSelectorDatasetInfo.get_name()]
-selector.add_network("convnet_customize", ConvCusNet)
-selector.add_final_activation('none', nn.Sequential())
-
-pipeline_config = pipeline.get_pipeline_config()
-pipeline_config["random_seed"] = 42
-hyper_config = pipeline.get_hyperparameter_search_space().sample_configuration()
+# import unittest
+# import torch
+# import torch.nn as nn
+#
+# from autoPyTorch.pipeline.base.pipeline import Pipeline
+# from autoPyTorch.components.networks.image import ConvCusNet
+# from autoPyTorch.pipeline.nodes.image.network_selector_datasetinfo import NetworkSelectorDatasetInfo
+# from autoPyTorch.pipeline.nodes.image.create_dataset_info import DataSetInfo
+#
+# #%%
+#
+# pipeline = Pipeline([
+#     NetworkSelectorDatasetInfo()
+# ])
+# dataset_info = DataSetInfo()
+# selector = pipeline[NetworkSelectorDatasetInfo.get_name()]
+# selector.add_network("convnet_customize", ConvCusNet)
+# selector.add_final_activation('none', nn.Sequential())
+#
+# pipeline_config = pipeline.get_pipeline_config()
+# pipeline_config["random_seed"] = 42
+# hyper_config = pipeline.get_hyperparameter_search_space().sample_configuration()
 
 # pipeline.fit_pipeline(hyperparameter_config=hyper_config, pipeline_config=pipeline_config,
 #                         X=torch.rand(1,3,32,32), Y=torch.rand(1, 1))
