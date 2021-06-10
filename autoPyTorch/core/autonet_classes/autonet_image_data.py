@@ -93,8 +93,8 @@ class AutoNetImageData(AutoNet):
         net_selector.add_network('resnet152', ResNet152)
         net_selector.add_network('darts', DARTSImageNet)
         net_selector.add_network('mobilenet', MobileNet)
-        net_selector._apply_search_space_update('resnet:nr_main_blocks', [2, 4], log=False)
-        net_selector._apply_search_space_update('resnet:widen_factor_1', [0.5, 8], log=True)
+        # net_selector._apply_search_space_update('resnet:nr_main_blocks', [2, 4], log=False)
+        # net_selector._apply_search_space_update('resnet:widen_factor_1', [0.5, 8], log=True)
 
         opt_selector = pipeline[OptimizerSelector.get_name()]
         opt_selector.add_optimizer('adam', AdamOptimizer)

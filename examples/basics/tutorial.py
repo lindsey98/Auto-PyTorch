@@ -88,7 +88,7 @@ autonet_config = {
 
 autonet = AutoNetImageClassification(config_preset="tiny_cs",
                                      result_logger_dir="logs/",
-                                     hyperparameter_search_space_updates=get_search_space_updates(),
+                                     # hyperparameter_search_space_updates=get_search_space_updates(),
                                      **autonet_config
                                     )
 
@@ -104,11 +104,11 @@ hyperparameter_search_space = autonet.get_hyperparameter_search_space()
 autonet.print_help()
 
 #%% md
-
+a = 1
 
 #%%
-
-path_to_cifar_csv = os.path.abspath("../../datasets/CIFAR10.csv")
+print(a)
+path_to_cifar_csv = os.path.abspath("./datasets/CIFAR10.csv")
 
 results_fit = autonet.fit(X_train=np.array([path_to_cifar_csv]),
                                  Y_train=np.array([0]),
