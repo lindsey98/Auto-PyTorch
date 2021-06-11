@@ -92,14 +92,12 @@ autonet_config = {
     }
 
 
-
 autonet = AutoNetImageClassification(config_preset="full_cs",
                                      result_logger_dir="logs/",
                                      # hyperparameter_search_space_updates=get_search_space_updates(),
                                      **autonet_config
                                     )
 
-#%%
 
 # Get the current configuration as dict
 current_configuration = autonet.get_current_autonet_config()
@@ -110,25 +108,27 @@ hyperparameter_search_space = autonet.get_hyperparameter_search_space()
 # Print all possible configuration options
 autonet.print_help()
 
-csv_dir = os.path.abspath("./datasets/CIFAR10_All.csv")
+csv_dir = os.path.abspath("./datasets/cifar-10/train.csv")
 df = pd.read_csv(csv_dir, header=None)
 X_train = df.values[:,0]
 Y_train = df.values[:,1]
 
 results_fit = autonet.fit(X_train=X_train,
                          Y_train=Y_train,
+                         images_shape=[3,32,32],
                          min_budget=10,
                          max_budget=20,
                          max_runtime=1800,
-                         images_root_folders=["./datasets/cifar_all"])
+                        images_root_folders=[os.path.abspath("./datasets/cifar-10/train/train")],
+                        )
 
 
 # See how the random configuration performs (often it just predicts 0)
-score = autonet.score(X_test=X_test, Y_test=Y_test)
-pred = autonet.predict(X=X_test)
+# score = autonet.score(X_test=X_test, Y_test=Y_test)
+# pred = autonet.predict(X=X_test)
 
-print("Model prediction:", pred[0:10])
-print("Accuracy score", score)
+# print("Model prediction:", pred[0:10])
+# print("Accuracy score", score)
 
 #%% md
 
