@@ -82,9 +82,14 @@ def get_search_space_updates():
 autonet_config = {
     "budget_type" : "epochs",
     "images_shape": [3,32,32],
-    "networks": ["convnet_cus", ],
-    }
+    # "networks": ["convnet_cus", "resnet"]
+    "networks": ["convnet_cus"],
+    "loss_modules": ["cross_entropy"],
+    "batch_loss_computation_techniques": ["standard"],
+    # "lr_scheduler": ["step"],
+    # "optimizer": ["sgd"],
 
+    }
 
 
 autonet = AutoNetImageClassification(config_preset="full_cs",
@@ -93,7 +98,6 @@ autonet = AutoNetImageClassification(config_preset="full_cs",
                                      **autonet_config
                                     )
 
-#%%
 
 # Get the current configuration as dict
 current_configuration = autonet.get_current_autonet_config()
@@ -104,37 +108,28 @@ hyperparameter_search_space = autonet.get_hyperparameter_search_space()
 # Print all possible configuration options
 autonet.print_help()
 
-#%% md
-a = 1
+csv_dir = os.path.abspath("./datasets/cifar-10/train.csv")
+df = pd.read_csv(csv_dir, header=None)
+X_train = df.values[:,0]
+Y_train = df.values[:,1]
 
-#%%
-print(a)
-path_to_cifar_csv = os.path.abspath("./datasets/CIFAR10.csv")
+results_fit = autonet.fit(X_train=X_train,
+                         Y_train=Y_train,
+                         images_shape=[3,32,32],
+                         min_budget=10,
+                         max_budget=20,
+                         max_runtime=1800,
+                        images_root_folders=[os.path.abspath("./datasets/cifar-10/train/train")],
+                        )
 
-results_fit = autonet.fit(X_train=np.array([path_to_cifar_csv]),
-                                 Y_train=np.array([0]),
-                                 min_budget=1,
-                                 max_budget=2,
-                                 max_runtime=1800,
-                                 default_dataset_download_dir="./datasets",
-                                 images_root_folders=["./datasets"])
-
-#%% md
-
-
-#%%
 
 # See how the random configuration performs (often it just predicts 0)
-score = autonet.score(X_test=X_test, Y_test=Y_test)
-pred = autonet.predict(X=X_test)
+# score = autonet.score(X_test=X_test, Y_test=Y_test)
+# pred = autonet.predict(X=X_test)
 
-print("Model prediction:", pred[0:10])
-print("Accuracy score", score)
+# print("Model prediction:", pred[0:10])
+# print("Accuracy score", score)
 
-#%% md
-
-
-#%%
 
 pytorch_model = autonet.get_pytorch_model()
 print(pytorch_model)
