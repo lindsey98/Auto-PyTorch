@@ -83,8 +83,8 @@ class NetworkSelector(PipelineNode):
             if (network_name not in possible_networks):
                 continue
             network_list.append(network_name)
-            network_cs = network_type.get_config_space(
-                **self._get_search_space_updates(prefix=network_name))
+            obj = self._get_search_space_updates(prefix=network_name)
+            network_cs = network_type.get_config_space(**obj)
             cs.add_configuration_space(prefix=network_name, configuration_space=network_cs, delimiter=ConfigWrapper.delimiter, 
                                        parent_hyperparameter={'parent': selector, 'value': network_name})
         self._check_search_space_updates((possible_networks, "*"))

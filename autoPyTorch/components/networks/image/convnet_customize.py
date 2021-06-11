@@ -85,7 +85,7 @@ class ConvCusNet(BaseImageNet):
             layers.append(nn.ReLU(inplace=True))    
         
     @staticmethod
-    def get_config_space(user_updates=None):
+    def get_config_space(conv_init_filters=[8, 64], conv_second_filters=[8, 64], conv_third_filters=[8, 64]):
         cs = CS.ConfigurationSpace()
         
         cs.add_hyperparameter(CSH.UniformIntegerHyperparameter('conv_init_filters', lower=8, upper=64))

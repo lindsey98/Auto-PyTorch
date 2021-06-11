@@ -73,7 +73,7 @@ class AutoNetImageData(AutoNet):
         from autoPyTorch.pipeline.nodes.image.create_image_dataloader import CreateImageDataLoader
         from autoPyTorch.pipeline.nodes.image.image_augmentation import ImageAugmentation
 
-        from autoPyTorch.components.networks.image import DenseNet, ResNet, MobileNet
+        from autoPyTorch.components.networks.image import DenseNet, ResNet, MobileNet, ConvCusNet
         from autoPyTorch.components.networks.image.densenet_flexible import DenseNetFlexible
         from autoPyTorch.components.networks.image.resnet152 import ResNet152
         from autoPyTorch.components.networks.image.darts.model import DARTSImageNet
@@ -93,6 +93,10 @@ class AutoNetImageData(AutoNet):
         net_selector.add_network('resnet152', ResNet152)
         net_selector.add_network('darts', DARTSImageNet)
         net_selector.add_network('mobilenet', MobileNet)
+        net_selector.add_network('convnet_cus', ConvCusNet)
+        net_selector._apply_search_space_update('convnet_cus:conv_init_filters', [8, 64], log=False)
+        net_selector._apply_search_space_update('convnet_cus:conv_second_filters', [8, 64], log=False)
+        net_selector._apply_search_space_update('convnet_cus:conv_third_filters', [8, 64], log=False)
         # net_selector._apply_search_space_update('resnet:nr_main_blocks', [2, 4], log=False)
         # net_selector._apply_search_space_update('resnet:widen_factor_1', [0.5, 8], log=True)
 

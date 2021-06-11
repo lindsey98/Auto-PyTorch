@@ -82,11 +82,12 @@ def get_search_space_updates():
 autonet_config = {
     "budget_type" : "epochs",
     "images_shape": [3,32,32],
+    "networks": ["convnet_cus", ],
     }
 
 
 
-autonet = AutoNetImageClassification(config_preset="tiny_cs",
+autonet = AutoNetImageClassification(config_preset="full_cs",
                                      result_logger_dir="logs/",
                                      # hyperparameter_search_space_updates=get_search_space_updates(),
                                      **autonet_config
