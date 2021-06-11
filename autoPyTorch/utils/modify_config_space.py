@@ -14,7 +14,8 @@ def remove_constant_hyperparameter(cs):
             hyperparameter_to_add.append(copy.copy(hyper))
 
     for name in constants:
-        truncate_hyperparameter(cs, cs.get_hyperparameter(name))
+        if "NetworkSelector" not in name: # TODO: here is a bug, do not truncate hyperparameters for network if the number of networks to be selected is only one
+            truncate_hyperparameter(cs, cs.get_hyperparameter(name))
 
     cs._hyperparameter_idx = dict()
     cs._idx_to_hyperparameter = dict()
