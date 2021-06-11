@@ -25,7 +25,7 @@ class ConvCusNet(BaseImageNet):
 
     def forward(self, x):
         x = self.layers(x)
-        x = x.reshape(x.size(0), -1)
+        x = x.reshape(x.size(0), -1, 1, 1)
         x = self.last_layers(x)
         if not self.training and self.final_activation is not None:
             x = self.final_activation(x)

@@ -22,6 +22,12 @@ class ConfigWrapper(object):
     def __getitem__(self, key):
         if ((self.config_prefix + key) not in self.config):
             pprint.pprint(self.config)
+
+        try:
+            self.config[self.config_prefix + key]
+        except:
+            print("missing key:", self.config_prefix + key)
+            print("")
         return self.config[self.config_prefix + key]
 
     def __iter__(self):

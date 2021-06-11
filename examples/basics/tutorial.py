@@ -82,7 +82,8 @@ def get_search_space_updates():
 autonet_config = {
     "budget_type" : "epochs",
     "images_shape": [3,32,32],
-    "networks": ["convnet_cus", ],
+    # "networks": ["convnet_cus", "resnet"]
+    "networks": ["convnet_cus"]
     }
 
 
