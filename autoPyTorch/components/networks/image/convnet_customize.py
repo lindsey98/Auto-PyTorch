@@ -6,15 +6,11 @@ Customized Implementation of a convolutional network.
 
 from __future__ import division, print_function
 
-import ConfigSpace
 import ConfigSpace as CS
 import ConfigSpace.hyperparameters as CSH
 import torch.nn as nn
 
 from autoPyTorch.components.networks.base_net import BaseImageNet
-from autoPyTorch.utils.config_space_hyperparameter import add_hyperparameter, get_hyperparameter
-
-
 
 __author__ = "Max Dippel, Michael Burkart and Matthias Urban"
 __version__ = "0.0.1"
@@ -29,8 +25,9 @@ class ConvCusNet(BaseImageNet):
 
     def forward(self, x):
         x = self.layers(x)
-        x = x.reshape(x.size(0), -1)
+        x = x.reshape(x.size(0), -1, 1, 1)
         x = self.last_layers(x)
+        x = x.reshape(x.size(0), -1)
         if not self.training and self.final_activation is not None:
             x = self.final_activation(x)
         return x
@@ -52,8 +49,8 @@ class ConvCusNet(BaseImageNet):
         
         cw, ch = self._get_layer_size(cw, ch)
         self._add_layer(layers, second_filter, third_filter, 3)
-        self.dense_size = second_filter * cw * ch # 8 x 4 x 4
-        print(cw, ch, self.dense_size)
+        self.dense_size = third_filter * cw * ch # 8 x 4 x 4
+        print(self.dense_size)
             
         # 2 dense layers
         dense_layers = list()
@@ -89,28 +86,12 @@ class ConvCusNet(BaseImageNet):
             layers.append(nn.ReLU(inplace=True))    
         
     @staticmethod
-    def get_config_space(conv_init_filters=[8, 64], 
-                         conv_second_filters=[8, 64], 
-                         conv_third_filters=[8, 64], **kwargs):
-        
-        import ConfigSpace as CS
-        import ConfigSpace.hyperparameters as CSH
-
+    def get_config_space(conv_init_filters=[8, 64], conv_second_filters=[8, 64], conv_third_filters=[8, 64]):
         cs = CS.ConfigurationSpace()
         
-        conv_init_filters_hp = get_hyperparameter(ConfigSpace.UniformIntegerHyperparameter, 
-                                                  "conv_init_filters", 
-                                                  conv_init_filters)
-        cs.add_hyperparameter(conv_init_filters_hp)
-        
-        conv_second_filters_hp = get_hyperparameter(ConfigSpace.UniformIntegerHyperparameter, 
-                                                    "conv_second_filters", 
-                                                    conv_second_filters)
-        cs.add_hyperparameter(conv_second_filters_hp)
-        
-        conv_third_filters_hp = get_hyperparameter(ConfigSpace.UniformIntegerHyperparameter,
-                                                   "conv_third_filters",
-                                                   conv_third_filters)
-        cs.add_hyperparameter(conv_third_filters_hp)
+        cs.add_hyperparameter(CSH.UniformIntegerHyperparameter('conv_init_filters', lower=8, upper=64))
+        cs.add_hyperparameter(CSH.UniformIntegerHyperparameter('conv_second_filters', lower=8, upper=64))
+        cs.add_hyperparameter(CSH.UniformIntegerHyperparameter('conv_third_filters', lower=8, upper=64))
 
         return(cs)
+# 
