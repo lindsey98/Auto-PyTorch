@@ -74,8 +74,9 @@ class TrainNode(PipelineNode):
         logger = logging.getLogger('autonet')
         logger.debug("Start train. Budget: " + str(budget))
 
-        if pipeline_config["torch_num_threads"] > 0:
-            torch.set_num_threads(pipeline_config["torch_num_threads"])
+#         if pipeline_config["torch_num_threads"] > 0:
+#             torch.set_num_threads(pipeline_config["torch_num_threads"])
+        torch.set_num_threads(1)
 
         trainer = Trainer(
             model=network,
@@ -156,8 +157,9 @@ class TrainNode(PipelineNode):
         if pipeline_config["predict_model"] is not None:
             network=pipeline_config["predict_model"]
 
-        if pipeline_config["torch_num_threads"] > 0:
-            torch.set_num_threads(pipeline_config["torch_num_threads"])
+#         if pipeline_config["torch_num_threads"] > 0:
+#             torch.set_num_threads(pipeline_config["torch_num_threads"])
+        torch.set_num_threads(1)
 
         device = Trainer.get_device(pipeline_config)
         
