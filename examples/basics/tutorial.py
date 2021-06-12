@@ -84,11 +84,10 @@ autonet_config = {
     "images_shape": [3,32,32],
     # "networks": ["convnet_cus", "resnet"]
     "networks": ["convnet_cus"],
-    "loss_modules": ["cross_entropy"],
+    # "loss_modules": ["cross_entropy"],
     "batch_loss_computation_techniques": ["standard"],
     # "lr_scheduler": ["step"],
     # "optimizer": ["sgd"],
-
     }
 
 
@@ -112,6 +111,8 @@ csv_dir = os.path.abspath("./datasets/cifar-10/train.csv")
 df = pd.read_csv(csv_dir, header=None)
 X_train = df.values[:,0]
 Y_train = df.values[:,1]
+print(X_train.shape)
+print(Y_train.shape)
 
 results_fit = autonet.fit(X_train=X_train,
                          Y_train=Y_train,
@@ -130,10 +131,6 @@ results_fit = autonet.fit(X_train=X_train,
 # print("Model prediction:", pred[0:10])
 # print("Accuracy score", score)
 
-#%% md
-
-
-#%%
 
 pytorch_model = autonet.get_pytorch_model()
 print(pytorch_model)

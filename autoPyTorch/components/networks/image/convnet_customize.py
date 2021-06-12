@@ -27,6 +27,7 @@ class ConvCusNet(BaseImageNet):
         x = self.layers(x)
         x = x.reshape(x.size(0), -1, 1, 1)
         x = self.last_layers(x)
+        x = x.reshape(x.size(0), -1)
         if not self.training and self.final_activation is not None:
             x = self.final_activation(x)
         return x
