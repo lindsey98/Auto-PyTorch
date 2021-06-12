@@ -11,6 +11,10 @@ import ConfigSpace.hyperparameters as CSH
 import torch.nn as nn
 
 from autoPyTorch.components.networks.base_net import BaseImageNet
+import ConfigSpace
+from autoPyTorch.utils.config_space_hyperparameter import add_hyperparameter, get_hyperparameter
+
+
 
 __author__ = "Max Dippel, Michael Burkart and Matthias Urban"
 __version__ = "0.0.1"
@@ -89,8 +93,15 @@ class ConvCusNet(BaseImageNet):
     def get_config_space(conv_init_filters=[8, 64], conv_second_filters=[8, 64], conv_third_filters=[8, 64]):
         cs = CS.ConfigurationSpace()
         
-        cs.add_hyperparameter(CSH.UniformIntegerHyperparameter('conv_init_filters', lower=8, upper=64))
-        cs.add_hyperparameter(CSH.UniformIntegerHyperparameter('conv_second_filters', lower=8, upper=64))
-        cs.add_hyperparameter(CSH.UniformIntegerHyperparameter('conv_third_filters', lower=8, upper=64))
+        cnn_filter1_hp = get_hyperparameter(ConfigSpace.UniformIntegerHyperparameter, "conv_init_filters", conv_init_filters)
+        cs.add_hyperparameter(cnn_filter1_hp)
+        cnn_filter2_hp = get_hyperparameter(ConfigSpace.UniformIntegerHyperparameter, "conv_second_filters", conv_second_filters)
+        cs.add_hyperparameter(cnn_filter2_hp)
+        cnn_filter3_hp = get_hyperparameter(ConfigSpace.UniformIntegerHyperparameter, "conv_third_filters", conv_third_filters)
+        cs.add_hyperparameter(cnn_filter3_hp)
+        
+#         cs.add_hyperparameter(CSH.UniformIntegerHyperparameter('conv_init_filters', lower=8, upper=64))
+#         cs.add_hyperparameter(CSH.UniformIntegerHyperparameter('conv_second_filters', lower=8, upper=64))
+#         cs.add_hyperparameter(CSH.UniformIntegerHyperparameter('conv_third_filters', lower=8, upper=64))
 
         return(cs)
