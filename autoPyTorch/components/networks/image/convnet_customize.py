@@ -50,7 +50,7 @@ class ConvCusNet(BaseImageNet):
         cw, ch = self._get_layer_size(cw, ch)
         self._add_layer(layers, second_filter, third_filter, 3)
         self.dense_size = third_filter * cw * ch # 8 x 4 x 4
-        print(self.dense_size)
+#         print(self.dense_size)
             
         # 2 dense layers
         dense_layers = list()
@@ -59,7 +59,7 @@ class ConvCusNet(BaseImageNet):
 
         nw = nn.Sequential(*layers)
         nd = nn.Sequential(*dense_layers)
-        print(nw, nd)
+#         print(nw, nd)
         return nw, nd
     
     def _get_layer_size(self, w, h):
