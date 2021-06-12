@@ -94,4 +94,3 @@ class ConvCusNet(BaseImageNet):
         cs.add_hyperparameter(CSH.UniformIntegerHyperparameter('conv_third_filters', lower=8, upper=64))
 
         return(cs)
-# 
