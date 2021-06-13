@@ -77,7 +77,7 @@ class ConvCusNet(BaseImageNet):
                                 kernel_size=3,
                                 stride=1,
                                 padding=1))
-        layers.append(nn.BatchNorm2d(out_filters))
+#         layers.append(nn.BatchNorm2d(out_filters))
         layers.append(nn.ReLU(inplace=True))
         layers.append(nn.MaxPool2d(kernel_size=2))
 

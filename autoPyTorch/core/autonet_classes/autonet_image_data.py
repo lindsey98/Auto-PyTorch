@@ -94,9 +94,9 @@ class AutoNetImageData(AutoNet):
         net_selector.add_network('darts', DARTSImageNet)
         net_selector.add_network('mobilenet', MobileNet)
         net_selector.add_network('convnet_cus', ConvCusNet)
-        net_selector._apply_search_space_update('convnet_cus:conv_init_filters', [8, 64], log=True)
-        net_selector._apply_search_space_update('convnet_cus:conv_second_filters', [8, 64], log=True)
-        net_selector._apply_search_space_update('convnet_cus:conv_third_filters', [8, 64], log=True)
+        net_selector._apply_search_space_update('convnet_cus:conv_init_filters', [8, 16], log=True)
+        net_selector._apply_search_space_update('convnet_cus:conv_second_filters', [8, 16], log=True)
+        net_selector._apply_search_space_update('convnet_cus:conv_third_filters', [8, 16], log=True)
         # net_selector._apply_search_space_update('resnet:nr_main_blocks', [2, 4], log=False)
         # net_selector._apply_search_space_update('resnet:widen_factor_1', [0.5, 8], log=True)
 
